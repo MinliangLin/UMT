@@ -26,18 +26,23 @@ def get_features(input_file, feature_duration=2, sr=32000):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-input", default="../data/1000053838/audio.mp4")
-    parser.add_argument("-output", type=Path, default="../data/1000053838/")
+    parser.add_argument("input", default="../data/1000053838/audio.mp4")
+    parser.add_argument("output", type=Path, default="../data/1000053838/")
     args = parser.parse_args()
 
     input_list = sorted(glob(args.input))
     for f in input_list:
-        output = args.output / "panns_feature.npz"
+        content_id = Path(f).parent.name
+        output = args.output / content_id / "panns_feature.npz"
         if output.exists():
-            print(output, 'exists. skip.')
+            print(output, "exists.")
             continue
-        feat = get_features(f)
-        np.savez(output, feat)
+        try:
+            feat = get_features(f)
+            np.savez(output, feat)
+        except:
+            print(output, "error")
+            continue
 
 
 if __name__ == "__main__":

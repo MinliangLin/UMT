@@ -1,0 +1,1 @@
+python3 /home/ubuntu/short_form/UMT/audio/extract_audio_feature.py '/home/ubuntu/short_form/data/*/audio.mp4' /home/ubuntu/short_form/data

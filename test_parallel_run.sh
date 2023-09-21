@@ -1,0 +1,8 @@
+python3 -c 'import torch;import os;print("env", os.environ["CUDA_VISIBLE_DEVICES"]);print(torch.cuda.device_count(), torch.cuda.current_device())'
+python3 -c 'import torch;import os;print("env", os.environ["CUDA_VISIBLE_DEVICES"]);print(torch.cuda.device_count(), torch.cuda.current_device())'
+python3 -c 'import torch;import os;print("env", os.environ["CUDA_VISIBLE_DEVICES"]);print(torch.cuda.device_count(), torch.cuda.current_device())'
+python3 -c 'import torch;import os;print("env", os.environ["CUDA_VISIBLE_DEVICES"]);print(torch.cuda.device_count(), torch.cuda.current_device())'
+python3 -c 'import torch;import os;print("env", os.environ["CUDA_VISIBLE_DEVICES"]);print(torch.cuda.device_count(), torch.cuda.current_device())'
+python3 -c 'import torch;import os;print("env", os.environ["CUDA_VISIBLE_DEVICES"]);print(torch.cuda.device_count(), torch.cuda.current_device())'
+python3 -c 'import torch;import os;print("env", os.environ["CUDA_VISIBLE_DEVICES"]);print(torch.cuda.device_count(), torch.cuda.current_device())'
+python3 -c 'import torch;import os;print("env", os.environ["CUDA_VISIBLE_DEVICES"]);print(torch.cuda.device_count(), torch.cuda.current_device())'
