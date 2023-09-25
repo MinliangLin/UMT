@@ -2,7 +2,6 @@
 
 from pathlib import Path
 
-import nncore
 import numpy as np
 import torch
 from nncore.dataset import DATASETS
@@ -66,21 +65,4 @@ class HotstarHighlight865(Dataset):
         return saliency
 
     def evaluate(self, blob, **kwargs):
-        num_samples, collected = len(blob), []
-        blob = nncore.to_dict_of_list(blob)
-
-        for i in range(num_samples):
-            pred = dict(qid=blob["meta"][i][0]["qid"], vid=blob["meta"][i][0]["vid"])
-
-            if "saliency" in blob:
-                pred["pred_saliency_scores"] = blob["saliency"][i][0].tolist()
-
-            if "boundary" in blob:
-                pred["pred_relevant_windows"] = blob["boundary"][i][0].tolist()
-
-            collected.append(pred)
-
-        label = nncore.load(self.label_path)
-        results = eval_qvhighlights(collected, label)["brief"]
-
-        return results
+        return dict() # TODO: not implemented yet
