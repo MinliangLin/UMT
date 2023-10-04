@@ -11,7 +11,18 @@
             "program": "${file}",
             "cwd": "${fileDirname}",
             "console": "integratedTerminal",
-            "justMyCode": true
+            "justMyCode": false
+        },
+        {
+            "name": "tools.launch",
+            "type": "python",
+            "request": "launch",
+            "python": "/home/ubuntu/UniVTG/venv/bin/python",
+            "program": "/home/ubuntu/short_form/UMT/tools/launch.py",
+            "cwd": "/home/ubuntu/short_form/UMT",
+            "console": "integratedTerminal",
+            "args": ["/home/ubuntu/short_form/UMT/configs/hotstar_highlight_865.py"],
+            "justMyCode": false
         }
     ]
 }
