@@ -1,0 +1,7 @@
+#debug
+v_emb.shape
+torch.Size([32, 258, 256])
+a_emb.shape
+torch.Size([32, 155, 256])
+
+Shape misalignment
