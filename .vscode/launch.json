@@ -14,14 +14,25 @@
             "justMyCode": false
         },
         {
-            "name": "tools.launch",
+            "name": "qvhighlight",
             "type": "python",
             "request": "launch",
             "python": "/home/ubuntu/UniVTG/venv/bin/python",
-            "program": "/home/ubuntu/short_form/UMT/tools/launch.py",
+            "program": "tools/launch.py",
             "cwd": "/home/ubuntu/short_form/UMT",
             "console": "integratedTerminal",
-            "args": ["/home/ubuntu/short_form/UMT/configs/hotstar_highlight_865.py"],
+            "args": ["configs/qvhighlights/umt_base_pretrain_100e_asr.py"],
+            "justMyCode": false
+        },
+        {
+            "name": "hotstar",
+            "type": "python",
+            "request": "launch",
+            "python": "/home/ubuntu/UniVTG/venv/bin/python",
+            "program": "tools/launch.py",
+            "cwd": "/home/ubuntu/short_form/UMT",
+            "console": "integratedTerminal",
+            "args": ["configs/hotstar_highlight_865/hotstar_highlight_865.py"],
             "justMyCode": false
         }
     ]
