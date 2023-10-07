@@ -1,0 +1,1 @@
+rsync -avL --cvs-exclude --exclude SlowFast --exclude data/qvhighlights --exclude data/youtube --exclude work_dirs . /efs/minliang/umt
