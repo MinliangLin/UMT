@@ -21,7 +21,7 @@
             "program": "tools/launch.py",
             "cwd": "/home/ubuntu/short_form/UMT",
             "console": "integratedTerminal",
-            "args": ["configs/qvhighlights/umt_base_pretrain_100e_asr.py"],
+            "args": ["configs/qvhighlights/umt_base_pretrain_100e_asr_debug.py"],
             "justMyCode": false
         },
         {

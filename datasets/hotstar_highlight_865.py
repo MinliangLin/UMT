@@ -32,6 +32,8 @@ class HotstarHighlight865(Dataset):
         self.label["end"] = self.label["end_position_scene"].map(
             lambda x: int(pd.Timedelta(x).total_seconds())
         )
+        self.label["duration"] = self.label.end - self.label.start
+        self.label = self.label[self.label.duration > 0].reset_index(drop=True)
 
     def __len__(self):
         return len(self.label)
@@ -43,7 +45,7 @@ class HotstarHighlight865(Dataset):
         data = dict(
             video=DataContainer(video),
             audio=DataContainer(audio),
-            saliency=DataContainer(saliency),
+            saliency=DataContainer(saliency, pad_value=-1),
         )
         return data
 
@@ -57,14 +59,16 @@ class HotstarHighlight865(Dataset):
     def get_audio(self, idx):
         row = self.label.iloc[idx]
         path = Path(self.audio_path) / f"{row.content_id}.npz"
-        audio = np.load(Path(self.audio_path) / f"{row.content_id}.npz")["arr_0"]
+        audio = np.load(path)["arr_0"]
+        audio = np.repeat(audio, 2, axis=0)
         audio = audio[row.start : row.end]
         return torch.from_numpy(audio).float()
 
     def get_saliency(self, idx):
         row = self.label.iloc[idx]
         duration = row.end - row.start
-        saliency = torch.tensor([int(row.rating > 3)], requires_grad=False)
+        # NOTE: The capitalized "Tensor" is float32 by default while "tensor" is not
+        saliency = torch.Tensor([int(row.rating > 3)] * duration)
         return saliency
 
     def evaluate(self, blob, **kwargs):

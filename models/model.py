@@ -49,6 +49,8 @@ class UMT(nn.Module):
         if self.query_gen is not None:
             q_emb = self.query_gen(r_emb, data.get('query'))
             d_emb = self.query_dec(q_emb, r_emb)
+        else:
+            d_emb = [d_emb] # HACK: manualy extend d_emb to list
 
         output = dict(
             _avg_factor=mask.size(0), _out=dict(meta=data.get('meta')))

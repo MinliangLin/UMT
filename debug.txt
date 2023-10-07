@@ -1,7 +1,46 @@
-#debug
-v_emb.shape
+# debug 1
+
+## hotstar
+
+data['video'].shape
+torch.Size([32, 256, 512])
+data['audio'].shape
+torch.Size([32, 173, 2048])
+data['saliency'].shape
+torch.Size([32, 1])
+---
+v_emb.shape: [batch, length, dim]
 torch.Size([32, 258, 256])
 a_emb.shape
 torch.Size([32, 155, 256])
 
-Shape misalignment
+!!Shape misalignment
+
+## qvhighlight
+
+data['video'].shape
+torch.Size([4, 75, 2816])
+data['audio'].shape
+torch.Size([4, 75, 2048])
+
+v_emb.shape
+torch.Size([4, 75, 256])
+a_emb.shape
+torch.Size([4, 75, 256])
+
+# debug 2
+
+## hotstar
+inputs: torch.Size([32, 262, 256])
+saliency_pred: torch.Size([262])
+mask: torch.Size([262])
+
+## qvhighlight
+
+inputs: list(len = 3, first = torch.Size([4, 75, 256]))
+saliency_pred: torch.Size([4, 75])
+data['saliency']: torch.Size([4, 75])
+mask: [4, 75]
+
+pred_head(d_emb, data, output, mode):
+    - d_emb: from torch.Size([4, 75, 256]) to list[3]
