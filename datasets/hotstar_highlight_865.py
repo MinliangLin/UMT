@@ -9,7 +9,7 @@ from nncore.parallel import DataContainer
 from torch.utils.data import Dataset
 
 import pandas as pd
-from .utils import eval_qvhighlights
+from sklearn import metrics
 
 
 @DATASETS.register()
@@ -39,7 +39,6 @@ class HotstarHighlight865(Dataset):
             is_valid.append(len(a) == len(v) > 0)
         self.label = self.label[is_valid].reset_index(drop=True)
 
-
     def __len__(self):
         return len(self.label)
 
@@ -52,7 +51,9 @@ class HotstarHighlight865(Dataset):
             video=DataContainer(video),
             audio=DataContainer(audio),
             saliency=DataContainer(saliency, pad_value=-1),
-            info=DataContainer([idx, row.content_id, row.start, row.end], cpu_only=True)
+            info=DataContainer(
+                [idx, row.content_id, row.start, row.end], cpu_only=True
+            ),
         )
         return data
 
@@ -78,5 +79,13 @@ class HotstarHighlight865(Dataset):
         saliency = torch.Tensor([int(row.rating > 3)] * duration)
         return saliency
 
-    def evaluate(self, blob, **kwargs):
-        return dict()  # TODO: not implemented yet
+    # blob: [{'meta':None, 'saliency': tensor()}]
+    def evaluate(self, blob: list[dict], **kwargs):
+        pred = [i["saliency"][0][0] for i in blob]
+        label = [int(i > 3) for i in self.label.rating]
+        return {
+            "AP": metrics.average_precision_score(label, pred),
+            "AUC": metrics.roc_auc_score(label, pred),
+            "Recall": metrics.recall_score(label, [int(i>0.5) for i in pred]),
+            "Precision": metrics.precision_score(label, [int(i>0.5) for i in pred]),
+        }
