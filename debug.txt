@@ -44,3 +44,8 @@ mask: [4, 75]
 
 pred_head(d_emb, data, output, mode):
     - d_emb: from torch.Size([4, 75, 256]) to list[3]
+
+## buggy segment
+[[12, 1770005017]]
+data/hotstar_highlight_865/panns_features/1770005017.npz is only of length (647, 2048)!!
+Audio feature extraction has some problem.

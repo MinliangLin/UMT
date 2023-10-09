@@ -39,7 +39,13 @@ class UMT(nn.Module):
             v_emb = data['video']
 
         if self.audio_enc is not None:
-            d_emb = r_emb = a_emb = self.audio_enc(data['audio'], mask=mask)
+            try:
+                d_emb = r_emb = a_emb = self.audio_enc(data['audio'], mask=mask)
+            except Exception as e:
+                print('err')
+                print(e)
+                import pdb
+                pdb.set_trace()
         else:
             a_emb = data['audio']
 

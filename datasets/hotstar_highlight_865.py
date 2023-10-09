@@ -32,8 +32,13 @@ class HotstarHighlight865(Dataset):
         self.label["end"] = self.label["end_position_scene"].map(
             lambda x: int(pd.Timedelta(x).total_seconds())
         )
-        self.label["duration"] = self.label.end - self.label.start
-        self.label = self.label[self.label.duration > 0].reset_index(drop=True)
+        is_valid = []
+        for i in range(len(self.label)):
+            v = self.get_video(i)
+            a = self.get_audio(i)
+            is_valid.append(len(a) == len(v) > 0)
+        self.label = self.label[is_valid].reset_index(drop=True)
+
 
     def __len__(self):
         return len(self.label)
@@ -42,10 +47,12 @@ class HotstarHighlight865(Dataset):
         video = self.get_video(idx)
         audio = self.get_audio(idx)
         saliency = self.get_saliency(idx)
+        row = self.label.iloc[idx]
         data = dict(
             video=DataContainer(video),
             audio=DataContainer(audio),
             saliency=DataContainer(saliency, pad_value=-1),
+            info=DataContainer([idx, row.content_id, row.start, row.end], cpu_only=True)
         )
         return data
 
