@@ -26,17 +26,11 @@ class HotstarHighlight865(Dataset):
             self.label = self.label[self.label.is_train].reset_index()
         else:
             self.label = self.label[~self.label.is_train].reset_index()
-        self.label["start"] = self.label["start_position_scene"].map(
-            lambda x: int(pd.Timedelta(x).total_seconds())
-        )
-        self.label["end"] = self.label["end_position_scene"].map(
-            lambda x: int(pd.Timedelta(x).total_seconds())
-        )
         is_valid = []
         for i in range(len(self.label)):
             v = self.get_video(i)
             a = self.get_audio(i)
-            is_valid.append(len(a) == len(v) > 0)
+            is_valid.append((a is not None) and (v is not None) and len(a) == len(v) > 0)
         self.label = self.label[is_valid].reset_index(drop=True)
 
     def __len__(self):
@@ -60,6 +54,8 @@ class HotstarHighlight865(Dataset):
     def get_video(self, idx):
         row = self.label.iloc[idx]
         path = Path(self.video_path) / f"{row.content_id}.npz"
+        if not path.is_file():
+            return None
         video = np.load(path)["features"]
         video = video[row.start : row.end]
         return torch.from_numpy(video).float()
@@ -67,6 +63,8 @@ class HotstarHighlight865(Dataset):
     def get_audio(self, idx):
         row = self.label.iloc[idx]
         path = Path(self.audio_path) / f"{row.content_id}.npz"
+        if not path.is_file():
+            return None
         audio = np.load(path)["arr_0"]
         audio = np.repeat(audio, 2, axis=0)
         audio = audio[row.start : row.end]
@@ -76,13 +74,13 @@ class HotstarHighlight865(Dataset):
         row = self.label.iloc[idx]
         duration = row.end - row.start
         # NOTE: The capitalized "Tensor" is float32 by default while "tensor" is not
-        saliency = torch.Tensor([int(row.rating > 3)] * duration)
+        saliency = torch.Tensor([row.label] * duration)
         return saliency
 
     # blob: [{'meta':None, 'saliency': tensor()}]
     def evaluate(self, blob: list[dict], **kwargs):
         pred = [i["saliency"][0][0] for i in blob]
-        label = [int(i > 3) for i in self.label.rating]
+        label = self.label.label
         return {
             "AP": metrics.average_precision_score(label, pred),
             "AUC": metrics.roc_auc_score(label, pred),
