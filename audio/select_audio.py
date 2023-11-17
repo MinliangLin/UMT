@@ -1,3 +1,6 @@
+# use soft link to unify audio filename
+# because the original files has different suffixes, e.g. en.mp4, hin.mp4 ...
+
 from pathlib import Path
 
 root = Path("/home/ubuntu/short_form/data/")
