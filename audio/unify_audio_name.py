@@ -1,4 +1,5 @@
-# use soft link to unify audio filename
+# For generate unify_audio_name.sh
+# It will use soft link to unify audio filename
 # because the original files has different suffixes, e.g. en.mp4, hin.mp4 ...
 
 from pathlib import Path
@@ -14,7 +15,7 @@ def coalesce(content_id):
             return path
 
 
-with open("select_audio.sh", "w") as f:
+with open("unify_audio_name.sh", "w") as f:
     for p in root.glob("*/*.json"):
         content_id = p.stem
         audio = coalesce(content_id)

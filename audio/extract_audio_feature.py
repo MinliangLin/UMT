@@ -26,8 +26,18 @@ def get_features(input_file, feature_duration=2, sr=32000):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("input", default="../data/1000053838/audio.mp4")
-    parser.add_argument("output", type=Path, default="../data/1000053838/")
+    parser.add_argument(
+        "input",
+        default="../data/1000053838/audio.mp4",
+        help="input audio mp3/mp4, can be glob like `audio/*.mp4` to run batch inference.",
+    )
+    parser.add_argument(
+        "output",
+        type=Path,
+        default="../data/1000053838/",
+        help="output directory. content_id will be parsed from input directory, "
+        "therefore the final path is $output/$content_id/panns_feature.npz",
+    )
     args = parser.parse_args()
 
     input_list = sorted(glob(args.input))

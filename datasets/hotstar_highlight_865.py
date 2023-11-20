@@ -1,5 +1,3 @@
-# Copyright (c) THL A29 Limited, a Tencent company. All rights reserved.
-
 from pathlib import Path
 
 import numpy as np
@@ -14,6 +12,8 @@ from sklearn import metrics
 
 @DATASETS.register()
 class HotstarHighlight865(Dataset):
+    # we don't support query yet.
+    # state is "train" or "val"
     def __init__(
         self, label_path, video_path, audio_path, query_path=None, state="train"
     ):
@@ -36,6 +36,8 @@ class HotstarHighlight865(Dataset):
     def __len__(self):
         return len(self.label)
 
+    # interface to provide training data
+    # here we provide data on the fly
     def __getitem__(self, idx):
         video = self.get_video(idx)
         audio = self.get_audio(idx)
