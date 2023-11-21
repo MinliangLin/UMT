@@ -13,13 +13,13 @@ We introduce our dataset type, so that we can train new model based on UMT model
 # How to
 
 1. Prepare video feature use CLIP model.
-2. Prepare audio feature:
-    1. Extract image features using the [infer_dataset.py](https://github.com/hotstar/media_understanding_univtg/blob/master/infer_dataset.py).
-    2. Extrace audio features:
+    - Extract image features using the [infer_dataset.py](https://github.com/hotstar/media_understanding_univtg/blob/master/infer_dataset.py).
+3. Prepare audio feature:
+    1. Extrace audio features:
         1. You may need to unify the name and format of audio files first using `audio/unify_audio_name.sh`.
         2. Then we can extract embedding vector using `audio/extract_audio_feature.sh`, which relies on `audio/extract_audio_feature.py` and famous library `panns_inference`.
-    3. Use `process_feature_and_label.py` to copy features and create labels (rating > 3 as positive sample, otherwise it is negative).
-3. Run `./run.sh` using local GPU
+    2. Use `process_feature_and_label.py` to copy features and create labels (rating > 3 as positive sample, otherwise it is negative).
+4. Run `./run.sh` using local GPU
     - or Run `sync_efs.sh` to copy files to shared file system and run `run_slurm.sh` on remote GPUs.
     - The model is small and single GPU should be enough.
 
