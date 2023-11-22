@@ -29,10 +29,11 @@ We introduce our dataset type, so that we can train new model based on UMT model
 2. Configs are represented as python native `dict`.
 3. Datasets class will be loaded by `configs/_base_/datasets/qvhighlights.py`
 4. From high level, model structure (forward function) is implemented in `./models/model.py`, shown as the below figure:
+    - For the detail model type, it is specified at `configs/_base_/models/umt_small.py`. For example, video encoder is implemented in `models/blocks/encoder.py`.
 
 ![](images/model.png)
 
-## Our Implementation
+## Our Contribution
 
 Most code we createe in this project is [the implementation of a new dataset](./datasets/hotstar_highlight_865.py) for Hotstar.
 

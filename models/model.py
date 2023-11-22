@@ -31,6 +31,7 @@ class UMT(nn.Module):
                    if isinstance(m, nn.Linear) else None)
 
     def forward(self, data, mode):
+        # mask will be passed to attention of TransformerEncoderLayer
         mask = torch.where(data['saliency'] >= 0, 1, 0)
 
         if self.video_enc is not None:
