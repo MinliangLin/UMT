@@ -28,7 +28,9 @@ We introduce our dataset type, so that we can train new model based on UMT model
 1. This code take fully usage of [nncore](https://github.com/yeliudev/nncore).
 2. Configs are represented as python native `dict`.
 3. Datasets class will be loaded by `configs/_base_/datasets/qvhighlights.py`
-4. From high level, model structure (forward function) is implemented in ./models/model.py
+4. From high level, model structure (forward function) is implemented in `./models/model.py`, shown as the below figure:
+
+![](images/model.png)
 
 ## Our Implementation
 
