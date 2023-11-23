@@ -10,6 +10,31 @@ We introduce our dataset type, so that we can train new model based on UMT model
 
 ![](./images/metrics.png)
 
+## Performance
+
+On validation set, the metrics are:
+
+```json
+{
+ 'MR-full-R1@0.5': 61.349998474121094,
+ 'MR-full-R1@0.7': 39.41999816894531,
+ 'MR-full-mAP': 34.849998474121094,
+ 'MR-full-mAP@0.5': 55.599998474121094,
+ 'MR-full-mAP@0.75': 35.290000915527344,
+ 'MR-long-mAP': 41.72999954223633,
+ 'MR-middle-mAP': 37.150001525878906,
+ 'MR-short-mAP': 3.5199999809265137,
+ 'HL-min-Fair-mAP': 74.94000244140625,
+ 'HL-min-Fair-Hit1': 76.83999633789062,
+ 'HL-min-Good-mAP': 63.66999816894531,
+ 'HL-min-Good-Hit1': 73.94000244140625,
+ 'HL-min-VeryGood-mAP': 38.650001525878906,
+ 'HL-min-VeryGood-Hit1': 62.130001068115234,
+ 'best_MR-full-mAP': 34.849998474121094,
+ 'best_HL-min-VeryGood-mAP': 38.790000915527344
+}
+```
+
 # How to
 
 1. Prepare video feature use CLIP model.
